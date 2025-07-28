@@ -38,7 +38,7 @@ def add_wm(input_pdf_name, cfg):
     doc.save(output_fname)
     doc.close()
 
-def test(pdf_file_name, model, extract_content, test_cfg):
+def test(pdf_file_name, client, model_name, extract_content, test_cfg):
     #given an open pdf_file descriptor, extract content from the file
     #then send it to the model with added reviewer prompt, and return text of the response
     content = extract_content(pdf_file_name)
@@ -47,7 +47,7 @@ def test(pdf_file_name, model, extract_content, test_cfg):
     messages = build_reviewer_message(test_cfg['reviewer_prompt'], content, expt_cfg)
 
     try:
-        response = client.chat.completions.create(model=model, messages=messages)
+        response = client.chat.completions.create(model=model_name, messages=messages)
         return response.choices[0].message.content
     except (KeyError, IndexError, TypeError) as e:
         return f"[Error parsing response: {e}]"
@@ -55,8 +55,8 @@ def test(pdf_file_name, model, extract_content, test_cfg):
 def filter_by_presence(review, watermark): 
     return watermark in review
 
-def save_results(file_name, results, config_wm, config_test):
-    experiment_data = { 'config_wm': config_wm, 'config_test': config_test, 'result': results }
+def save_results(file_name, model_name, results, config_wm, config_test):
+    experiment_data = { 'config_wm': config_wm, 'config_test': config_test, 'model': model_name, 'result': results }
     with open(file_name, 'w') as file:
         yaml.dump(experiment_data, file, default_flow_style=False)
 
