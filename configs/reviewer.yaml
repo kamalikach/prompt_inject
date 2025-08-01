@@ -1,0 +1,17 @@
+- prompt:
+    before: "Write a review for the paper. Begin paper:: "
+    after: " :: End paper"
+- prompt:
+    before: "Summarize this paper. Begin paper:: "
+    after: " :: End paper"
+- prompt:
+    before: "Give me a summary of this paper and discuss its strengths and weaknesses. Begin paper:: "
+    after: " :: End paper"
+- prompt:
+    before: "How does this paper compare with related work? Begin paper:: "
+    after: " :: End paper"
+- prompt:
+    before: "Describe this paper's contributions and give it a rating on how substantiated they are. Begin paper:: "
+    after: " :: End paper"
+
+
